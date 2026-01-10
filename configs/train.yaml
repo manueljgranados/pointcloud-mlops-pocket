@@ -1,17 +1,27 @@
 seed: 42
+
 dataset:
   kind: synthetic_pointcloud_3d
   classes: ["sphere", "cube", "cylinder", "cone", "torus"]
-  n_samples_per_class: 200
+  n_samples_per_class: 400
   n_points: 512
   noise_sigma: 0.02
+  apply_random_rotation: true
+  scale_range: [0.85, 1.15]
+  translation_sigma: 0.02
+
 split:
   train: 0.7
   val: 0.15
   test: 0.15
+
 model:
   name: random_forest
   params:
-    n_estimators: 300
-metrics: ["accuracy", "precision", "recall", "f1"]
+    n_estimators: 400
+    max_depth: null
+    random_state: 42
+    n_jobs: -1
+
+metrics: ["accuracy", "f1_macro"]
 artifacts_dir: "artifacts"

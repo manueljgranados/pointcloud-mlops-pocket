@@ -5,5 +5,7 @@ services:
       dockerfile: docker/Dockerfile
     environment:
       - MODEL_DIR=/app/artifacts/models/current
+    volumes:
+      - ../artifacts:/app/artifacts
     ports:
       - "8000:8000"
