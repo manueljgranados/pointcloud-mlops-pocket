@@ -7,8 +7,8 @@ from pydantic import BaseModel, Field
 from pointcloud_mlops.adapters.io.artifact_store import load_model
 from pointcloud_mlops.core.features import extract_features
 from pointcloud_mlops.core.plotly_viz import figure_to_json, pointcloud_figure
-from pointcloud_mlops.core.schemas import GenerateRequest, GenerateResponse
 from pointcloud_mlops.core.pointcloud_generator import GenerateParams, generate_pointcloud
+from pointcloud_mlops.core.schemas import GenerateRequest, GenerateResponse
 
 app = FastAPI(title="PointCloud 3D - Mini MLOps")
 
@@ -67,11 +67,14 @@ def generate(req: GenerateRequest):
 def predict(req: PredictRequest):
     try:
         model, meta = load_model(MODEL_DIR)
-    except Exception:
+    except Exception as err:
         raise HTTPException(
             status_code=503,
-            detail="Model not available. Train first and ensure MODEL_DIR points to artifacts/models/current.",
-        )
+            detail=(
+                "Model not available. Train first and ensure MODEL_DIR points to "
+                "artifacts/models/current."
+            ),
+        ) from err
 
     pts = np.asarray(req.points, dtype=float)
     if pts.ndim != 2 or pts.shape[1] != 3:
