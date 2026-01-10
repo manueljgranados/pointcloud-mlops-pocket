@@ -1,0 +1,17 @@
+seed: 42
+dataset:
+  kind: synthetic_pointcloud_3d
+  classes: ["sphere", "cube", "cylinder", "cone", "torus"]
+  n_samples_per_class: 200
+  n_points: 512
+  noise_sigma: 0.02
+split:
+  train: 0.7
+  val: 0.15
+  test: 0.15
+model:
+  name: random_forest
+  params:
+    n_estimators: 300
+metrics: ["accuracy", "precision", "recall", "f1"]
+artifacts_dir: "artifacts"

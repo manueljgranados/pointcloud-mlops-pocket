@@ -1,0 +1,9 @@
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    environment:
+      - MODEL_DIR=/app/artifacts/models/current
+    ports:
+      - "8000:8000"
