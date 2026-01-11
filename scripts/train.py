@@ -90,6 +90,17 @@ def main() -> int:
     print(f"Modelo guardado. version={saved.version}")
     print("Métricas val:", m_va)
     print("Métricas test:", m_te)
+
+    report = {
+        "model_version": saved.version,
+        "dataset_fingerprint": dataset_fp,
+        "metrics": {"val": m_va, "test": m_te},
+        "classes": classes,
+    }
+    reports_dir = Path(cfg["artifacts_dir"]) / "reports"
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    (reports_dir / "report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+
     return 0
 
 

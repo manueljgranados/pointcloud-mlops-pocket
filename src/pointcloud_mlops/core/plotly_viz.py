@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import json
+
 import numpy as np
 import plotly.graph_objects as go
+from plotly.utils import PlotlyJSONEncoder
 
 
 def pointcloud_figure(points: np.ndarray, title: str = "Point cloud") -> go.Figure:
@@ -34,7 +37,7 @@ def pointcloud_figure(points: np.ndarray, title: str = "Point cloud") -> go.Figu
 
 
 def figure_to_json(fig: go.Figure) -> str:
-    return fig.to_json()
+    return json.dumps(fig.to_plotly_json(), cls=PlotlyJSONEncoder)
 
 
 def figure_to_html(fig: go.Figure) -> str:

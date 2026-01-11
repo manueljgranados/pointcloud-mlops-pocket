@@ -1,4 +1,12 @@
 services:
+  train:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: ["uv", "run", "python", "scripts/train.py", "--config", "configs/train.yaml"]
+    volumes:
+      - ../artifacts:/app/artifacts
+
   api:
     build:
       context: ..
